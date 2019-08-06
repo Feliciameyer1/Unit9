@@ -1,5 +1,16 @@
 <?php 
 session_start();
+if(isset($_SESSION['UserName'])){
+    if($_SESSION['UserName']==="User_CEO") {
+        // do nothing
+    } elseif ($_SESSION['UserName']==="User_Sales"){
+        //do nothing as well
+    } else {
+        session_unset();
+        session_destroy();
+        header("location:../index.php?InvalidaccessAttempt");
+    }
+}
 ?>
 <html>
 <head>
@@ -14,7 +25,7 @@ session_start();
 <a href="../Home.php">Main menu</a>
 <p>If you wish to update product records, first fill out the search form.</p>
 <p>Then fill out the update form</p>
-<form action="OrderSearch.php" method="post">
+<form Name="Search" action="OrderSearch.php" method="post" onsubmit="return ValidateSearch()">
 <p> Fill out this form to search for a specific order</p>
 <input type="text" name="CustomerID" Placeholder="Customer ID">
 <input type="Date" name="OrderDate" Placeholder="Order date">
@@ -23,7 +34,7 @@ session_start();
 
 </form>
 <p>To add a new order fill out this form below</p>
-<form action="OrderInsert.php" method="post">
+<form name="Insert" action="OrderInsert.php" method="post" onsubmit="return ValidateInsert()">
 <input type="text" name="CustomerID" Placeholder="Customer ID">
 <input type="Date" name="OrderDate" placeholder="Order Date">
 <input type="text" name="Address" placeholder="Shipping Address">
@@ -32,7 +43,7 @@ session_start();
 <button type="reset">Clear</button>
 </form>
 <p>Fill Out the Form Below to delete an Order record</p>
-<form action="OrdersDelete.php" method="post">
+<form name="Delete" action="OrdersDelete.php" method="post" onsubmit="return ValidateDelete()">
 
 <input type="text" name="CustomerID" Placeholder="CustomerID">
 <input type="Date" name="OrderDate" Placeholder="Order Date">

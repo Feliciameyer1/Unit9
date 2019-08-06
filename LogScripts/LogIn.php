@@ -18,6 +18,7 @@ if (isset($_POST['Login'])){
     if( $conn ) {
         session_start();
         $_SESSION['UserName']=$username;
+       
          header("location:../Home.php");
     }else{
        

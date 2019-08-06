@@ -1,4 +1,16 @@
 <?php
+session_start();
+if(isset($_SESSION['UserName'])){
+    if($_SESSION['UserName']==="User_CEO") {
+        // do nothing
+    } elseif ($_SESSION['UserName']==="User_Sales"){
+        //do nothing as well
+    } else {
+        session_unset();
+        session_destroy();
+        header("location:../index.php?InvalidaccessAttempt");
+    }
+}
 $serverName = "FELICIA-PC\\sqlexpress"; //serverName\instanceName
 $connectionInfo = array( "Database"=>"Northwind" );
 $conn = sqlsrv_connect( $serverName, $connectionInfo);
@@ -44,6 +56,17 @@ sqlsrv_close( $conn );
 <nav>
 <a href="../Home.php">Main menu</a>
 <a href="Customers.php">Customer Main menu</a>
+<?php 
+if(isset($_SESSION['UserName'])){
+    if($_SESSION['UserName']==="User_CEO") {
+        echo "<a href='../EmployeeMenuCodes/Employees.php'>Employee Menu</a>";
+        echo "<a href='../Orders/Orders.php'>Order Menu</a>";
+    }
+    if($_SESSION['UserName']==="User_Sales"){
+        echo "<a href='../Orders/Orders.php'>Order Menu</a>";
+    }
+}
+?>
 </nav>
 <form action="CustomerUpdate.php" method="post">
 <p>Enter The Comapany Name of the Customer you wish to update</p>

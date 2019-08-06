@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $serverName = "FELICIA-PC\\sqlexpress"; //serverName\instanceName
 $connectionInfo = array( "Database"=>"Northwind" );
 $conn = sqlsrv_connect( $serverName, $connectionInfo);

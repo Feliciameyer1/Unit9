@@ -1,4 +1,14 @@
 <?php
+session_start();
+if(isset($_SESSION['UserName'])){
+    if($_SESSION['UserName']==="User_CEO") {
+       // do nothing 
+    } elseif ($_SESSION['UserName']==="User_Sales"){
+        //do nothing as well
+    } else {
+        header("location:../Home.php?invalidaccess");
+    }
+}
 $serverName = "FELICIA-PC\\sqlexpress"; //serverName\instanceName
 $connectionInfo = array( "Database"=>"Northwind" );
 $conn = sqlsrv_connect( $serverName, $connectionInfo);
